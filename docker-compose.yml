@@ -30,9 +30,7 @@ services:
       - ./legacy-media:/usr/share/nginx/legacy
       - ./vanilla-media:/usr/share/nginx/vanilla
 
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-      - ./legacy.conf:/etc/nginx/conf.d/legacy.conf
-      - ./vanilla.conf:/etc/nginx/conf.d/vanilla.conf
+      - ./sites:/etc/nginx/conf.d
   houdini_login:
     build: ./houdini-asyncio
     image: houdini
