@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--- 
+Eventually the clients will all look here to establish a connection to
+houdini. Right now, this file is redundant.
+ --->
+<servers>
+   <environment name="stage">
+      <login address="127.0.0.1" port="6112" />
+      <language locale="en">
+         <server id="3100" name="Blizzard" safe="false" address="127.0.0.1" port="9875" />
+      </language>
+      <language locale="es">
+         <server id="3101" name="Glaciar" safe="false" address="127.0.0.1" port="9876" />
+      </language>
+      <language locale="pt">
+         <server id="3102" name="Avalanche" safe="false" address="127.0.0.1" port="9877" />
+      </language>
+      <language locale="fr">
+         <server id="3103" name="Yeti" safe="false" address="127.0.0.1" port="9878" />
+      </language>
+   </environment>
+</servers>

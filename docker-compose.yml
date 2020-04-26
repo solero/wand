@@ -1,0 +1,159 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - wand
+    ports:
+      - 5432:5432
+    volumes:
+      - ./houdini-asyncio/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
+  redis:
+    image: redis:5.0.9-alpine
+    networks:
+      - wand
+    ports:
+      - 6379
+  web:
+    image: nginx:1.17.10-alpine
+    ports:
+      - 80:80
+    networks:
+      - wand
+    links:
+      - dash:dash
+    volumes:
+      - ./legacy-media:/usr/share/nginx/legacy
+      - ./vanilla-media:/usr/share/nginx/vanilla
+
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./legacy.conf:/etc/nginx/conf.d/legacy.conf
+      - ./vanilla.conf:/etc/nginx/conf.d/vanilla.conf
+  houdini_login:
+    build: ./houdini-asyncio
+    image: houdini
+    networks:
+      - wand
+    ports:
+      - 6112:6112
+    volumes:
+      - ./houdini-asyncio:/usr/src/houdini
+    depends_on:
+      - db
+      - redis
+    links:
+      - db:db
+      - redis:redis
+    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
+              "python", "bootstrap.py", "login", 
+              "--redis-address", "redis", 
+              "--database-address", "db", 
+              "--database-user", "postgres", 
+              "--database-password", "postgres"]
+
+  houdini_blizzard:
+    image: houdini
+    networks:
+      - wand
+    ports:
+      - 9875:9875
+    volumes:
+      - ./houdini-asyncio:/usr/src/houdini
+    depends_on:
+      - houdini_login
+    links:
+      - db:db
+      - redis:redis
+    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
+              "python", "bootstrap.py", "world",
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "postgres",
+              "--database-password", "postgres"]
+
+  houdini_glaciar:
+    image: houdini
+    networks:
+      - wand
+    ports:
+      - 9876:9876
+    volumes:
+      - ./houdini-asyncio:/usr/src/houdini
+    depends_on:
+      - houdini_login
+    links:
+      - db:db
+      - redis:redis
+    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
+              "python", "bootstrap.py", "world",
+              "-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "postgres",
+              "--database-password", "postgres"]
+
+  houdini_avalanche:
+    image: houdini
+    networks:
+      - wand
+    ports:
+      - 9877:9877
+    volumes:
+      - ./houdini-asyncio:/usr/src/houdini
+    depends_on:
+      - houdini_login
+    links:
+      - db:db
+      - redis:redis
+    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
+              "python", "bootstrap.py", "world",
+              "-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "postgres",
+              "--database-password", "postgres"]
+
+  houdini_yeti:
+    image: houdini
+    networks:
+      - wand
+    ports:
+      - 9878:9878
+    volumes:
+      - ./houdini-asyncio:/usr/src/houdini
+    depends_on:
+      - houdini_login
+    links:
+      - db:db
+      - redis:redis
+    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
+              "python", "bootstrap.py", "world",
+              "-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "postgres",
+              "--database-password", "postgres"]
+
+  dash:
+    build: ./dash
+    networks:
+      - wand
+    ports:
+      - 3000
+    volumes:
+      - ./dash:/usr/src/dash
+      - ./config.py:/usr/src/dash/config.py
+    depends_on:
+      - db
+      - redis
+    links:
+      - db:db
+    command: dockerize -wait tcp://db:5432 python bootstrap.py -c config.py
+
+networks:
+  wand:
+    driver: bridge
