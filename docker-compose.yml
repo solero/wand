@@ -4,57 +4,97 @@ services:
   db:
     image: postgres:12.2-alpine
     restart: always
-    environment:
-      POSTGRES_PASSWORD: postgres
+    env_file:
+      - .env
     networks:
       - wand
     ports:
       - 5432:5432
     volumes:
       - ./houdini-asyncio/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
+      - ./.data:/var/lib/postgresql/data
   redis:
     image: redis:5.0.9-alpine
+    restart: always
     networks:
       - wand
     ports:
       - 6379
   web:
-    image: nginx:1.17.10-alpine
+    build: ./web
+    restart: always
+    env_file:
+      - .env
     ports:
-      - 80:80
+      - 80:${WEB_PORT}
     networks:
       - wand
     links:
       - dash:dash
     volumes:
+      - ./www:/usr/share/nginx/html
       - ./legacy-media:/usr/share/nginx/legacy
       - ./vanilla-media:/usr/share/nginx/vanilla
+      - ./servers.xml:/t/servers.xml
 
-      - ./sites:/etc/nginx/conf.d
+      - ./templates/sites/legacy.conf.template:/etc/nginx/conf.d/legacy.conf.template
+      - ./templates/sites/vanilla.conf.template:/etc/nginx/conf.d/vanilla.conf.template
+      - ./templates/legacy-media/play/index.html.template:/t/legacy/play/index.html.template
+      - ./templates/legacy-media/play/es/index.html.template:/t/legacy/play/es/index.html.template
+      - ./templates/legacy-media/play/fr/index.html.template:/t/legacy/play/fr/index.html.template
+      - ./templates/legacy-media/play/pt/index.html.template:/t/legacy/play/pt/index.html.template
+      - ./templates/vanilla-media/play/index.html.template:/t/vanilla/play/index.html.template
+      - ./templates/vanilla-media/play/es/index.html.template:/t/vanilla/play/es/index.html.template
+      - ./templates/vanilla-media/play/fr/index.html.template:/t/vanilla/play/fr/index.html.template
+      - ./templates/vanilla-media/play/pt/index.html.template:/t/vanilla/play/pt/index.html.template
+      - ./templates/vanilla-media/media/play/web_service/environment_data.xml.template:/t/vanilla/media/play/web_service/environment_data.xml.template
+
+    command: ["dockerize", 
+              "-template", "/etc/nginx/conf.d/legacy.conf.template:/etc/nginx/conf.d/legacy.conf",
+              "-template", "/etc/nginx/conf.d/vanilla.conf.template:/etc/nginx/conf.d/vanilla.conf",
+              "-template", "/t/servers.xml:/usr/share/nginx/legacy/media/servers.xml",
+              "-template", "/t/servers.xml:/usr/share/nginx/vanilla/play/servers.xml",
+
+              "-template", "/t/legacy/play/index.html.template:/usr/share/nginx/legacy/play/index.html",
+              "-template", "/t/legacy/play/index.html.template:/usr/share/nginx/legacy/play/en/index.html",
+              "-template", "/t/legacy/play/es/index.html.template:/usr/share/nginx/legacy/play/es/index.html",
+              "-template", "/t/legacy/play/fr/index.html.template:/usr/share/nginx/legacy/play/fr/index.html",
+              "-template", "/t/legacy/play/pt/index.html.template:/usr/share/nginx/legacy/play/pt/index.html",
+              "-template", "/t/vanilla/play/index.html.template:/usr/share/nginx/vanilla/play/index.html",
+              "-template", "/t/vanilla/play/index.html.template:/usr/share/nginx/vanilla/play/en/index.html",
+              "-template", "/t/vanilla/play/es/index.html.template:/usr/share/nginx/vanilla/play/es/index.html",
+              "-template", "/t/vanilla/play/fr/index.html.template:/usr/share/nginx/vanilla/play/fr/index.html",
+              "-template", "/t/vanilla/play/pt/index.html.template:/usr/share/nginx/vanilla/play/pt/index.html",
+              "-template", "/t/vanilla/media/play/web_service/environment_data.xml.template:/usr/share/nginx/vanilla/media/play/web_service/environment_data.xml",
+              "nginx", "-g", "daemon off;"]
   houdini_login:
     build: ./houdini-asyncio
     image: houdini
+    restart: always
+    env_file:
+      - .env
     networks:
       - wand
     ports:
-      - 6112:6112
+      - ${GAME_LOGIN_PORT}:${GAME_LOGIN_PORT}
     volumes:
       - ./houdini-asyncio:/usr/src/houdini
+      - ./wait-for-postgres.sh:/usr/src/houdini/wait-for-postgres.sh
     depends_on:
       - db
       - redis
     links:
       - db:db
       - redis:redis
-    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
-              "python", "bootstrap.py", "login", 
+    entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python", "bootstrap.py", "login"]
+    command: ["--port", "${GAME_LOGIN_PORT}",
               "--redis-address", "redis", 
               "--database-address", "db", 
-              "--database-user", "postgres", 
-              "--database-password", "postgres"]
-
+              "--database-user", "${POSTGRES_USER}", 
+              "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_blizzard:
     image: houdini
+    restart: always
     networks:
       - wand
     ports:
@@ -66,15 +106,16 @@ services:
     links:
       - db:db
       - redis:redis
-    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
-              "python", "bootstrap.py", "world",
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "postgres",
-              "--database-password", "postgres"]
-
+              "--database-user", "${POSTGRES_USER}", 
+              "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_glaciar:
     image: houdini
+    restart: always
     networks:
       - wand
     ports:
@@ -86,16 +127,16 @@ services:
     links:
       - db:db
       - redis:redis
-    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
-              "python", "bootstrap.py", "world",
-              "-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "postgres",
-              "--database-password", "postgres"]
-
+              "--database-user", "${POSTGRES_USER}", 
+              "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_avalanche:
     image: houdini
+    restart: always
     networks:
       - wand
     ports:
@@ -107,16 +148,16 @@ services:
     links:
       - db:db
       - redis:redis
-    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
-              "python", "bootstrap.py", "world",
-              "-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "postgres",
-              "--database-password", "postgres"]
-
+              "--database-user", "${POSTGRES_USER}", 
+              "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_yeti:
     image: houdini
+    restart: always
     networks:
       - wand
     ports:
@@ -128,29 +169,36 @@ services:
     links:
       - db:db
       - redis:redis
-    command: ["dockerize", "-wait", "tcp://db:5432", "-wait", "tcp://redis:6379", "-wait-retry-interval", "3s",
-              "python", "bootstrap.py", "world",
-              "-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "postgres",
-              "--database-password", "postgres"]
-
+              "--database-user", "${POSTGRES_USER}", 
+              "--database-password", "${POSTGRES_PASSWORD}"]
   dash:
     build: ./dash
+    restart: always
     networks:
       - wand
+    env_file:
+      - .env
     ports:
       - 3000
     volumes:
       - ./dash:/usr/src/dash
-      - ./config.py:/usr/src/dash/config.py
+      - ./vanilla-media/media/avatar/paper:/usr/src/dash/items
+      - ./templates/dash/config.py.template:/usr/src/dash/config.py.template
     depends_on:
       - db
       - redis
     links:
       - db:db
-    command: dockerize -wait tcp://db:5432 python bootstrap.py -c config.py
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}",
+                "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
+                "python", "bootstrap.py"]
+    command: ["-c", "config.py"]
 
 networks:
   wand:
