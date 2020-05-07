@@ -70,8 +70,8 @@ ACTIVATE_REDIRECT : str
     via email.
 """
 ACTIVATE_PLAYER = {{ if not .Env.WEB_SENDGRID_KEY }}True{{ else }}False{{ end }}
-VANILLA_ACTIVATE_LINK = '{{ .Env.WEB_VANILLA_PLAY }}/create/activate'
-LEGACY_ACTIVATE_LINK = '{{ .Env.WEB_LEGACY_PLAY }}/create/activate'
+VANILLA_ACTIVATE_LINK = '{{ .Env.WEB_VANILLA_PLAY }}'
+LEGACY_ACTIVATE_LINK = '{{ .Env.WEB_LEGACY_PLAY }}'
 ACTIVATE_REDIRECT = '{{ .Env.WEB_LEGACY_PLAY }}'
 
 """
