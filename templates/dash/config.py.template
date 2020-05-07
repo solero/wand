@@ -36,8 +36,8 @@ GSECRET_KEY : str
     https://www.google.com/recaptcha/admin/create
 """
 GCAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify'
-GSECRET_KEY = '{{ .Env.WEB_RECAPTCHA_SITE }}'
-GSITE_KEY = '{{ .Env.WEB_RECAPTCHA_SECRET }}'
+GSECRET_KEY = '{{ .Env.WEB_RECAPTCHA_SECRET }}'
+GSITE_KEY = '{{ .Env.WEB_RECAPTCHA_SITE }}'
 
 """
 Player usernames
