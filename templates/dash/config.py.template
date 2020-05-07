@@ -18,9 +18,9 @@ Here place the PostgreSQL credentials
 where your Houdini database is located.
 """
 POSTGRES_HOST = 'db'
-POSTGRES_NAME = 'postgres'
-POSTGRES_USER = 'postgres'
-POSTGRES_PASSWORD = 'postgres'
+POSTGRES_NAME = '{{ .Env.POSTGRES_USER }}'
+POSTGRES_USER = '{{ .Env.POSTGRES_USER }}'
+POSTGRES_PASSWORD = '{{ .Env.POSTGRES_PASSWORD }}'
 
 
 """
@@ -36,7 +36,8 @@ GSECRET_KEY : str
     https://www.google.com/recaptcha/admin/create
 """
 GCAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify'
-GSECRET_KEY = ''
+GSECRET_KEY = '{{ .Env.WEB_RECAPTCHA_SITE }}'
+GSITE_KEY = '{{ .Env.WEB_RECAPTCHA_SECRET }}'
 
 """
 Player usernames
@@ -60,15 +61,18 @@ Player activation
 ACTIVATE_PLAYER : bool
     Activate player automatically so no email needs to be sent.
     Enabling this option requires a SendGrid API key.
-ACTIVATE_LINK : str
+LEGACY_ACTIVATE_LINK : str
+    URL player is taken to for activation.
+VANILLA_ACTIVATE_LINK : str
     URL player is taken to for activation.
 ACTIVATE_REDIRECT : str
     URL to redirect to when player has activated their account
     via email.
 """
-ACTIVATE_PLAYER = True
-ACTIVATE_LINK = 'http://secure.clubpenguin.com/create/activate/'
-ACTIVATE_REDIRECT = ''
+ACTIVATE_PLAYER = {{ if not .Env.WEB_SENDGRID_KEY }}True{{ else }}False{{ end }}
+VANILLA_ACTIVATE_LINK = '{{ .Env.WEB_VANILLA_PLAY }}/create/activate'
+LEGACY_ACTIVATE_LINK = '{{ .Env.WEB_LEGACY_PLAY }}/create/activate'
+ACTIVATE_REDIRECT = '{{ .Env.WEB_LEGACY_PLAY }}'
 
 """
 Email
@@ -90,10 +94,10 @@ MAX_ACCOUNT_EMAIL : int
 .. SendGrid registration:
     https://signup.sendgrid.com/
 """
-SITE_NAME = 'Houdini'
-FROM_EMAIL = 'noreply@houdi.ni'
-SENDGRID_API_KEY = ''
-EMAIL_WHITELIST = ['gmail.com', 'hotmail.com']
+SITE_NAME = '{{ .Env.WEB_HOSTNAME }}'
+FROM_EMAIL = 'noreply@{{ .Env.WEB_HOSTNAME }}'
+SENDGRID_API_KEY = '{{ .Env.WEB_SENDGRID_KEY }}'
+EMAIL_WHITELIST = []
 MAX_ACCOUNT_EMAIL = 5
 
 """
@@ -104,3 +108,16 @@ STATIC_KEY : str
     changed unless required by login server auth.
 """
 STATIC_KEY = 'houdini'
+
+
+"""
+Sub-domains
+------------
+PLAY_SUBDOMAIN : str
+    Play page sub-domain used to load static content for the AS3 registration page.
+"""
+PLAY_SUBDOMAIN = '{{ .Env.WEB_VANILLA_PLAY }}'
+
+
+# For more configuration settings see
+# https://sanic.readthedocs.io/en/latest/sanic/config.html#builtin-configuration-values
