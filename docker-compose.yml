@@ -86,7 +86,7 @@ services:
     links:
       - db:db
       - redis:redis
-    entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python", "bootstrap.py", "login"]
+    entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python3.8", "bootstrap.py", "login"]
     command: ["--port", "${GAME_LOGIN_PORT}",
               "--redis-address", "redis", 
               "--database-address", "db", 
@@ -108,7 +108,7 @@ services:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python3.8", "bootstrap.py", "world"]
     command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -130,7 +130,7 @@ services:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python3.8", "bootstrap.py", "world"]
     command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -152,7 +152,7 @@ services:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python3.8", "bootstrap.py", "world"]
     command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -174,7 +174,7 @@ services:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python3.8", "bootstrap.py", "world"]
     command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -202,7 +202,7 @@ services:
       - houdini_login:login
     entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}",
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
-                "python", "bootstrap.py"]
+                "python3.8", "bootstrap.py"]
     command: ["-c", "config.py"]
 
 networks:
