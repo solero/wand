@@ -1,0 +1,73 @@
+server {
+    server_name  {{ (parseUrl .Env.WEB_VANILLA_PLAY).Host }};
+
+    location {{ (parseUrl .Env.WEB_VANILLA_PLAY).Path }}/ {
+        root   /usr/share/nginx/vanilla/play/;
+        index  index.html index.htm;
+    }
+
+    location /penguin/create {
+        proxy_pass http://dash:3000/create/vanilla/en;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location ~ ^/(.*)/penguin/create {
+        proxy_pass http://dash:3000/create/vanilla/$1;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location ~ ^/(.*)/penguin/activate {
+        proxy_pass http://dash:3000/activate/vanilla/$1;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location ~ ^/avatar/(.*)/cp$ {
+        proxy_pass http://dash:3000/avatar/$1$is_args$args;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location ^/(.*)/web-service/snfgenerator/session$ {
+        proxy_pass http://dash:3000/session;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /api/v0.2/xxx/game/get/world-name-service/start_world_request {
+        proxy_pass http://dash:3000/swrequest;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+server {
+    server_name  {{ (parseUrl .Env.WEB_VANILLA_MEDIA).Host }};
+
+    location / {
+        root   /usr/share/nginx/vanilla/media;
+        index  index.html index.htm;
+    }
+
+    location /social/autocomplete/v2/search/suggestions {
+        proxy_pass http://dash:3000/autocomplete;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

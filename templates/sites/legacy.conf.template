@@ -1,0 +1,52 @@
+server {
+    server_name {{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }};
+
+    {{ if (parseUrl .Env.WEB_LEGACY_PLAY).Path }}
+    location {{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }} {
+        root /usr/share/nginx/legacy/;
+        index index.html index.htm;
+    }
+    location / {
+        root /usr/share/nginx/legacy/{{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }};
+        index index.html index.htm;
+    }
+    location {{ (parseUrl .Env.WEB_LEGACY_MEDIA).Path }} {
+        root /usr/share/nginx/legacy/;
+        index index.html index.htm;
+    }
+    location {{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }}/v2 {
+        root /usr/share/nginx/legacy/media/;
+    }
+    {{ else }}
+    location / {
+        root   /usr/share/nginx/legacy/play;
+        index  index.html index.htm;
+    }
+    {{ end }}
+
+    location /create_account/create_account.php {
+        proxy_pass http://dash:3000/create/legacy;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /create/activate {
+        proxy_pass http://dash:3000/create/activate;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+server {
+    server_name  {{ (parseUrl .Env.WEB_LEGACY_MEDIA).Host }};
+
+    location / {
+        root   /usr/share/nginx/legacy/media;
+        index  index.html index.htm;
+    }
+
+}
