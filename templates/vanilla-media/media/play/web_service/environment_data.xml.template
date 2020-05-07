@@ -1,0 +1,12 @@
+<environmentData>
+
+	<!-- CP General Environment -->
+	<data name="play" value="{{ .Env.WEB_VANILLA_MEDIA }}/play/"></data>
+	<data name="client" value="{{ .Env.WEB_VANILLA_MEDIA }}/play/v2/client/"></data>
+	<data name="content" value="{{ .Env.WEB_VANILLA_MEDIA }}/play/v2/content/"></data>
+	<data name="games" value="{{ .Env.WEB_VANILLA_MEDIA }}/play/v2/games/"></data>
+	<data name="drupal" value="{{ .Env.WEB_VANILLA_PLAY }}/"></data>
+	<data name="secured" value="{{ .Env.WEB_VANILLA_PLAY }}/"></data>
+	<data name="config" value="{{ .Env.WEB_VANILLA_MEDIA }}/play/"></data>
+
+</environmentData>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML+RDFa 1.1//EN">
+<html lang="pt" dir="ltr" version="HTML+RDFa 1.1"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:sioc="http://rdfs.org/sioc/ns#"
+  xmlns:sioct="http://rdfs.org/sioc/types#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:fb="http://ogp.me/ns/fb#"
+  xmlns:article="http://ogp.me/ns/article#"
+  xmlns:book="http://ogp.me/ns/book#"
+  xmlns:profile="http://ogp.me/ns/profile#"
+  xmlns:video="http://ogp.me/ns/video#">
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="google-site-verification" content="7SDU81jjttuSoN8lxj9rUV265par6NaICtumeryTRYQ" />
+<link rel="shortcut icon" href="/assets/sites/play.clubpenguin.com/themes/snowball/favicon.ico" type="image/vnd.microsoft.icon" />
+  <title>Jogar! | Club Penguin</title>
+  <link rel="alternate" type="application/rss+xml" title="Club Penguin - What's New" href="http://www.clubpenguin.com/pt/whats-new/feed/all" /> 
+  <link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_cawUUwTb6FTEpTC7UYZQwdcaTVHlWORZjZlFNt1mXNc.css" media="all" />
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_5FxwTVZs9EtbjcExytQ5ndQqt-X7PFwK3mD2o7QXYH0.css" media="all" />
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_Ithmjuj4ePlnkLrL_GIuS3TsGEoCIelrKOCUPBOfhJ8.css" media="all" />
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_6sGcdaud_kk5LWaaq4lZk2ZLw8uneQM4wYx5rg2QgOM.css" media="all" />
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_9Heh1u--mIfOomnfZC-JIjM3PxmkhjTogDetvyuVnMU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_5AoaSUlnRluwt_SO1GRzTQdCdcJf0Aw-MqGesNvp_6Y.css" media="all" />
+
+<!--[if lte IE 9]>
+<link type="text/css" rel="stylesheet" href="/sites/play.clubpenguin.com/themes/club_penguin/css/ie-lte-9.css?om3jak" media="all" />
+<![endif]-->
+
+<!--[if (lt IE 9)&(!IEMobile)]>
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css__vb7XZfXeuRXjYmfY6lNTg-jy-9kxy0K07AXHAQnnDQ.css" media="all" />
+<![endif]-->
+
+<!--[if gte IE 9]><!-->
+<link type="text/css" rel="stylesheet" href="/sites/default/files/fc_http/css/css_lpn3saPwnh0DOdveZjtLNqWuVLzzK8A98rurOUMUo0s.css" media="all" />
+<!--<![endif]-->
+ 
+  <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body class="html not-front not-logged-in page-play full-page-flow i18n-pt context-play snowball">
+  <div class="region region-page-top" id="region-page-top">
+  <div class="region-inner region-page-top-inner">
+      </div>
+</div>  <div class="page clearfix" id="page">
+
+            <header id="section-header" class="section section-header">
+  <div id="affiliate-header" style="display: none;">
+    <a id="affiliate-header-link" href="http://www.clubpenguin.com/pt/?home=return"><img src="/sites/play.clubpenguin.com/themes/snowball/img/affiliate-cp-logo.png"></a>
+</div>
+<nav>
+    <a id="home-link" href="http://www.clubpenguin.com/pt/?home=return">Início</a>
+    <ul class="mainnav" itemscope="itemscope" itemtype="http://www.schema.org/SiteNavigationElement">
+        <li itemprop="name"><a itemprop="url" href="https://secured.clubpenguin.com/pt/membership" class="cpmenu">Assinatura</a></li>
+        <li itemprop="name"><a itemprop="url" href="http://www.clubpenguin.com/pt/whats-new" class="cpmenu">Novidades</a></li>
+        <li itemprop="name"><a itemprop="url" href="http://www.clubpenguin.com/pt/safety" class="cpmenu">Segurança</a></li>
+        <li itemprop="name"><a itemprop="url" href="http://www.clubpenguin.com/pt/parents" class="cpmenu">Pais</a></li>
+        <li itemprop="name"><a itemprop="url" href="http://www.clubpenguin.com/pt/fun-stuff" class="cpmenu">Comunidade</a></li>
+        <li itemprop="name"><a itemprop="url" href="https://www.clubpenguinisland.com/pt-pt/" class="cpmenu">Apps</a></li>
+        <li itemprop="name"><a itemprop="url" href="http://help.disney.com/pt_BR/clubpenguin" class="cpmenu">Ajuda</a></li>
+    </ul>
+    <div id="language-select">
+        <div>
+            <a id="language-select-link" class="top-level" href="#" tabindex="1">Selecione o Idioma<span class="indicator"></span></a>
+            <div id="bottom-languages">
+                <a class="first" href="/">ENGLISH</a>
+                <a href="/es/">ESPA&Ntilde;OL</a>
+                <a href="/fr/">FRAN&Ccedil;AIS</a>
+                <a class="last" href="/pt/">PORTUGU&Ecirc;S</a>
+            </div>
+        </div>
+    </div>
+    <ul class="navbar navbar-right">
+        <li><a id="logout-link" class="logout" href="https://secured.clubpenguin.com/pt/penguin/logout"><img src="/sites/play.clubpenguin.com/themes/snowball/img/icon-logout.png"> Sair</a></li>
+    </ul>
+</nav>
+<div id="banner"></div></header>    
+    <main id="content">
+        <section id="billboards">
+            <!--
+            <div id="membership-buttons">
+                <a class="membership-button" href="https://secured.clubpenguin.com/pt/membership">Sobre a Assinatura</a>
+            </div>
+            -->
+            <img src="/assets/December-CPI-Announcement-Billboard-PT.jpg">
+        </section>
+        <section id="actions">
+            <img class="cp-logo" src="/assets/sites/default/themes/snowball/img/club-penguin-logo.png" />
+            <div id="create">
+                <a id="penguin-create" class="action-button cp-button-blue" href="https://secured.clubpenguin.com/pt/penguin/create">Criar um Pinguim</a>
+            </div>
+            <div id="login">
+                <a id="penguin-login" class="action-button cp-button-blue cp-mobile-pop" href="/pt/#/login">Fazer Login</a>
+            </div>
+        </section>
+    </main>
+
+            <footer id="section-footer" class="section section-footer">
+  <p id="name">&copy; Disney. Club Penguin&trade;</p>
+<p id="footer-updated">
+	<a  target="_blank" href="http://www.clubpenguin.com/pt/terms-of-use/">Termos de uso</a> 
+	&nbsp;| &nbsp; <a  target="_blank" href="http://www.clubpenguin.com/pt/privacy-policy/">Política de Privacidade</a>
+	&nbsp;| &nbsp; <a  target="_blank" href="https://disneyprivacycenter.com/kids-privacy-policy/portuguese/">Políticas de Privacidade Online para Crianças</a>
+	&nbsp;| &nbsp; <a  target="_blank" href="https://disneyprivacycenter.com/notice-to-california-residents/">Direitos de Privacidade da Califórnia</a>
+	&nbsp;| &nbsp; <a  target="_blank" href="http://help.disney.com/pt_BR/clubpenguin/Contact?productCode=Club-Penguin">support.pt@clubpenguin.com</a> 
+</p>
+<p id="footer-legal">Este site pertence à Disney Canada Inc., localizada na 500-1628 Dickson Avenue, Kelowna, British Columbia, Canadá V1Y 9X1. Registro da companhia #1879215 VAT#EU826012025</p>
+</footer>        
+</div>
+<script type="application/ld+json">
+    { "@context": "http://schema.org", "@type": "WebSite", "name": "Club Penguin", "url": "/" }
+</script>
+  <div class="region region-page-bottom" id="region-page-bottom">
+  <div class="region-inner region-page-bottom-inner">
+      </div>
+</div>  <script type="text/javascript" src="/sites/default/files/fc_http/js/js_jpJjaUC0z8JMIyav5oQrYykDRUb64rpaUDpB4Y9aklU.js"></script>
+<script type="text/javascript" src="/sites/default/files/fc_http/js/js_32OCC7TUXcQ26myiC_PKkpvoU5ltaaDe8niVutpKtrA.js"></script>
+<script type="text/javascript" src="/sites/default/files/fc_http/js/js_BwbLSV451gPrsWfJzlp-8DWfY_Be3ClMkna8J8pMyzE.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.CKEDITOR_BASEPATH = '/sites/all/libraries/ckeditor/'
+//--><!]]>
+</script>
+<script type="text/javascript" src="/sites/default/files/js/js_HbFTUN2pKM9AIYs88RAyetbRRbaBp_PaIXfgtECrvTU.js"></script>
+<script type="text/javascript" src="/sites/default/files/fc_http/js/js_o2ds7CQye0F4k9GwyDZAYk9dJY5NEBiGnH_iynlnt0s.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var media = "{{ .Env.WEB_VANILLA_MEDIA }}/";
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"pt\/","ajaxPageState":{"theme":"snowball","theme_token":"711ncg_ha7tpM0MwF7SfcQNejnPsA0hMSZWS1CJ_Nws","js":{"sites\/play.clubpenguin.com\/modules\/contrib\/jquery_update\/replace\/jquery\/1.7\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.core.min.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.widget.min.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.position.min.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"public:\/\/languages\/pt_xaIKoowPUECy7PzeEQimRu329OosxFcNySuehw6fqPQ.js":1,"sites\/play.clubpenguin.com\/libraries\/colorbox\/colorbox\/jquery.colorbox-min.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/colorbox\/js\/colorbox.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/colorbox\/styles\/default\/colorbox_default_style.js":1,"sites\/play.clubpenguin.com\/modules\/contrib\/colorbox\/js\/colorbox_inline.js":1,"sites\/play.clubpenguin.com\/modules\/custom\/selectmenu\/js\/jquery.ui.selectmenu\/jquery.ui.selectmenu.js":1,"sites\/play.clubpenguin.com\/modules\/custom\/selectmenu\/js\/selectmenu.js":1,"sites\/play.clubpenguin.com\/modules\/custom\/views_slideshow\/js\/views_slideshow.js":1,"0":1,"sites\/play.clubpenguin.com\/libraries\/purl-master\/purl.js":1,"sites\/play.clubpenguin.com\/libraries\/swfobject\/swfobject.js":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/js\/common\/cp.utils.modal.js":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/js\/common\/lib\/cookies.js":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/js\/common\/agegate_popup.js":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/js\/common\/cp.dol.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/external.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/error.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/banner.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/disney.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/flashclient.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/upgradeflashclient.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/mpclient.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/friendsclient.js":1,"sites\/play.clubpenguin.com\/themes\/snowball\/js\/snowball.js":1,"sites\/play.clubpenguin.com\/themes\/omega\/omega\/js\/jquery.formalize.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"misc\/ui\/jquery.ui.core.css":1,"misc\/ui\/jquery.ui.theme.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/contrib\/date\/date_api\/date.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/play.clubpenguin.com\/modules\/contrib\/colorbox\/styles\/default\/colorbox_default_style.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/panels\/css\/panels.css":1,"sites\/play.clubpenguin.com\/modules\/custom\/selectmenu\/js\/jquery.ui.selectmenu\/jquery.ui.selectmenu.css":1,"sites\/play.clubpenguin.com\/modules\/custom\/views_slideshow\/views_slideshow.css":1,"sites\/play.clubpenguin.com\/modules\/custom\/cp_helper\/css\/modal.css":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/css\/font-face-play.css":1,"sites\/play.clubpenguin.com\/themes\/omega\/alpha\/css\/alpha-reset.css":1,"sites\/play.clubpenguin.com\/themes\/omega\/alpha\/css\/alpha-mobile.css":1,"sites\/play.clubpenguin.com\/themes\/omega\/alpha\/css\/alpha-alpha.css":1,"sites\/play.clubpenguin.com\/themes\/omega\/omega\/css\/formalize.css":1,"sites\/play.clubpenguin.com\/themes\/snowball\/css\/global.css":1,"sites\/play.clubpenguin.com\/themes\/club_penguin\/css\/ie-lte-9.css":1,"ie::normal::sites\/play.clubpenguin.com\/themes\/omega\/alpha\/css\/grid\/alpha_fluid\/normal\/alpha-fluid-normal-12.css":1,"sites\/play.clubpenguin.com\/themes\/omega\/alpha\/css\/grid\/alpha_fluid\/normal\/alpha-fluid-normal-12.css":1}},"colorbox":{"opacity":"0.85","current":"{current} of {total}","previous":"\u00ab Prev","next":"Pr\u00f3ximo","close":"FECHAR","maxWidth":"100%","maxHeight":"100%","fixed":true,"__drupal_alter_by_ref":["default"]},"cp_mobile_interstitial":{"ios":{"title":"O Club Penguin n\u00e3o est\u00e1 mais dispon\u00edvel. Veja mais informa\u00e7\u00f5es em Ilha do Club Penguin.","content":"Ao clicar no link abaixo voc\u00ea est\u00e1 saindo do Club Penguin e ser\u00e1 direcionado \u00e0 www.clubpenguinisland.com\/pt-pt","action_link":"https:\/\/www.clubpenguinisland.com\/pt-pt\/info\/","buttons":{"cancel":"Cancelar","action":"Saiba Mais"},"class":"cp-mobile-interstitial ios-interstitial"},"android":{"title":"O Club Penguin n\u00e3o est\u00e1 mais dispon\u00edvel. Para ver mais informa\u00e7\u00f5es, acesse Ilha do Club Penguin na loja de aplicativos.","content":"Ao clicar abaixo, voc\u00ea estar\u00e1 prestes a acessar o aplicativo Ilha do Club Penguin na play.google.com, onde se aplicam diferentes Termos de Uso e Pol\u00edtica de Privacidade.","action_link":"\/pt\/cpi-android-download","buttons":{"cancel":"Cancelar","action":"Baixar"},"class":"cp-mobile-interstitial android-interstitial"}},"jcarousel":{"ajaxPath":"\/pt\/jcarousel\/ajax\/views"},"selectmenu":{"form_id_exceptions":["comment-form","page-changer"],"ignore_system_settings_forms":1,"ignore_overlay_forms":1,"ignore_node_add_forms":1,"disable_for_admin_theme":1,"options":{"positionOptions":{"collision":"none"}}},"snowball_banner":{"membershipDaysRemaining":"Voc\u00ea tem \u003Cstrong\u003E%daysRemaining% dias\u003C\/strong\u003E restantes para ativar sua conta","membershipLastDay":"Hoje \u00e9 o \u003Cstrong\u003E\u00faltimo dia\u003C\/strong\u003E da sua assinatura.","membershipAbout":"Sobre a Assinatura","preActivationDaysRemaining":"Voc\u00ea pode pinguinar pela ilha sem ativar sua conta por \u003Cstrong\u003E%daysRemaining% dias\u003C\/strong\u003E","preActivationHoursRemaining":"Voc\u00ea pode pinguinar pela ilha sem ativar sua conta por \u003Cstrong\u003E%hoursRemaining% Horas\u003C\/strong\u003E","preActivationLastHour":"Voc\u00ea tem menos de uma hora para ativar a sua conta. As contas que n\u00e3o tiverem sido ativadas ser\u00e3o deletadas.","preActivationAbout":"Sobre a Assinatura"},"snowball_errors":{"general":{"code":"general","header":"","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EHouve um erro ao carregar o Club Penguin.\u003C\/span\u003E\u003Cspan\u003ETente novamente ou contate o nosso suporte se o problema persistir.\u003C\/span\u003E","messageTag":"\u003Cdiv\u003E","links":[{"label":"OK","href":"\/pt\/#","id":"ok-button","type":"text"}]},"flashUpgradeRequired":{"code":"flashUpgradeRequired","header":"Baixe o \u00faltimo Adobe Flash Player para jogar no Club Penguin!","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EPe\u00e7a aos seus pais e respons\u00e1veis para ajudar.\u003C\/span\u003E\u003Cspan\u003EVisite a p\u00e1gina \u003Ca href=\u0022http:\/\/help.disney.com\/pt_BR\/clubpenguin\u0022\u003ED\u00favidas Frequentes: Flash Player\u003C\/a\u003E para saber mais sobre essa atualiza\u00e7\u00e3o. \u003C\/span\u003E","messageTag":"\u003Cdiv\u003E","links":[{"label":"\/sites\/play.clubpenguin.com\/themes\/snowball\/img\/pt\/ignore-button.png","href":"\/pt\/#\/login","id":"ignore-button","type":"img"},{"label":"\/sites\/play.clubpenguin.com\/themes\/snowball\/img\/pt\/upgrade-button.png","href":"\/pt\/#\/upgrade","id":"upgrade-button","type":"img"}]},"flashInstallRequired":{"code":"flashInstallRequired","header":"Flash Player Required ","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EOpa! Para acessar o Club Penguin, \u00e9 preciso a vers\u00e3o mais recente do Flash. Pe\u00e7a aos pais ou respons\u00e1veis para baix\u00e1-lo no site adobe.com\u003C\/span\u003E\r\n\u003Cspan\u003EPara ver mais detalhes, acesse \u003Ca href=\u0022http:\/\/help.disney.com\/articles\/pt_BR\/FAQ\/Como-eu-atualizo-o-Flash-Player?section=clubpenguin\u0022\u003Eas Perguntas Frequentes do Flash Player\u003C\/a\u003E.\u003C\/span\u003E\r\n","messageTag":"\u003Cdiv\u003E","links":[]},"flashInstallRequiredChrome":{"code":"flashInstallRequiredChrome","header":"O Flash Player \u00e9 necess\u00e1rio!","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EOpa! Para jogar Club Penguin neste navegador, pe\u00e7a aos pais ou respons\u00e1veis para ativar a \u00faltima vers\u00e3o do Flash Player.\u003C\/span\u003E\r\n\u003Cspan\u003EPara saber como faz\u00ea-lo, acesse \u003Ca href=\u0022http:\/\/help.disney.com\/articles\/pt_BR\/FAQ\/Why-is-Club-Penguin-asking-me-to-download-or-install-Flash?section=clubpenguin\u0022\u003E as Perguntas Frequentes do Flash Player\u003C\/a\u003E.\u003C\/span\u003E\r\n\r\n","messageTag":"\u003Cdiv\u003E","links":[]},"flashMinimumRequired":{"code":"flashMinimumRequired","header":"Flash Player Required ","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EOpa! Para acessar o Club Penguin, \u00e9 preciso a vers\u00e3o mais recente do Flash. Pe\u00e7a aos pais ou respons\u00e1veis para baix\u00e1-lo no site adobe.com\u003C\/span\u003E\r\n\u003Cspan\u003EPara ver mais detalhes, acesse \u003Ca href=\u0022http:\/\/help.disney.com\/articles\/pt_BR\/FAQ\/Como-eu-atualizo-o-Flash-Player?section=clubpenguin\u0022\u003Eas Perguntas Frequentes do Flash Player\u003C\/a\u003E.\u003C\/span\u003E\r\n","messageTag":"\u003Cdiv\u003E","links":[{"label":"\/sites\/play.clubpenguin.com\/themes\/snowball\/img\/pt\/upgrade-button.png","href":"\/pt\/#\/upgrade","id":"upgrade-button","type":"img"}]},"unknownFlashError":{"code":"unknownFlashError","header":"","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EAlgo deu errado no Adobe Flash Player.\u003C\/span\u003E\u003Cspan\u003ETente acessar de novo.\u003C\/span\u003E","messageTag":"\u003Cdiv\u003E","links":[]},"cjSnowFlashUpgradeRequired":{"code":"cjSnowFlashUpgradeRequired","header":"","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EOps! Voc\u00ea precisa ter a \u00faltima vers\u00e3o do Flash Player para jogar o Desafio Ninja Neve.\u003C\/span\u003E\u003Cspan\u003EPe\u00e7a aos pais ou respons\u00e1veis para fazer o download acessando adobe.com.br\u003C\/span\u003E","messageTag":"\u003Cdiv\u003E","links":[{"label":"OK","href":"\/pt\/#","id":"ok-button","type":"text"}]},"cjSnowSnfGenerator":{"code":"cjSnowSnfGenerator","header":"","headerTag":"\u003Ch1\u003E","message":"\u003Cspan\u003EHouve um erro ao carregar o Desafio Ninja Neve.\u003C\/span\u003E\u003Cspan\u003ETente novamente ou contate o nosso suporte se o problema persistir.\u003C\/span\u003E","messageTag":"\u003Cdiv\u003E","links":[{"label":"OK","href":"\/pt\/#","id":"ok-button","type":"text"}]}},"snowball":{"language":"pt","langPath":"\/pt\/","countryCode":"US","visitorType":"","affStyle":"0","promotionString":"1","cssJsQueryString":"om3jak"},"flash_game_settings":{"recommendedSwfVersion":"12.0.0.44","minimumSwfVersion":"10.1","loadSwf":media + "play\/v2\/client\/club_penguin.swf?clientVersion=21639","baseUrl":media + "play\/","clientDirectory":media + "play\/v2\/client\/","contentDirectory":media + "play\/v2\/content\/","gamesDirectory":media + "play\/v2\/games\/","connectionID":"cp68294","lang":"pt","a":null,"nau":"","nal":"","nas":"","nad":"","cacheVersion":"","clientVersion":"21639","configVersion":"1485906035","contentVersion":"84421","minigameVersion":"13162","swfAddressUrl":"\/sites\/play.clubpenguin.com\/libraries\/swfaddress\/swfaddress.js?om3jak"},"mp_game_settings":{"minimumSwfVersion":"11.3","loadSwf":media + "game\/mpassets\/\/playclients\/r3662\/flash_client_base_fp11.swf","product":"cjsnow","baseAssetUrl":media + "game\/mpassets\/","assetServer":media + "game\/mpassets\/","assetSeed":media + "game\/mpassets\/","manifestUrl":"\u003Cbase_asset_url\u003E\/publishdata\/r5309\/manifest\/manifest_tokenized.json","wns":"n7vcp1clubpwns.clubpenguin.com","lang":"pt_BR","SWF_ERRORS":media + "game\/mpassets\/\/minigames\/cjsnow\/en_US\/deploy\/swf\/ui\/assets\/ErrorMessages.swf","SWF_LOADER":media + "game\/mpassets\/\/minigames\/cjsnow\/en_US\/deploy\/swf\/ui\/assets\/cardjitsu_snowbetapreloader.swf","PLACE":"snow_lobby","affLangDir":"\/pt","productName":"cjsnow"},"misc_game_settings":{"affLang":"pt","expressInstallSwfUrl":"\/sites\/play.clubpenguin.com\/themes\/snowball\/swf\/expressInstall.swf","devMode":"DEBUG_MODE","promotionString":null,"nau":"","nal":"","nas":"","nad":"","phraseChatUrl":media + "\/social\/autocomplete\/v2\/search\/","friendsUrl":"\/js\/disney-friends-ostrta-min.js?v=1.3.57","createUrl":"https:\/\/secured.clubpenguin.com\/pt\/penguin\/create","nameResubmissionUrl":"https:\/\/secured.clubpenguin.com\/pt\/penguin\/update-username","sendActivationMailUrl":"https:\/\/secured.clubpenguin.com\/pt\/penguin\/resend-activation-email"},"cp_tracking":{"section":"play","pageName":"home_big_screen","protocolBase":"http","langPath":"pt","qs":"","ctoAccount":"clubpenguin","ctoCategory":"dgame","ctoSite":"clp","ctoProperty":"clp"}});
+//--><!]]>
+</script>
+</body>
+</html>
