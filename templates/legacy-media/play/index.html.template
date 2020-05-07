@@ -90,7 +90,7 @@
     <script src="https://www.google.com/recaptcha/api.js?render={{ .Env.WEB_RECAPTCHA_SITE }}"></script>
     <script type="text/javascript">
     function grecaptchaSubmit(){
-      grecaptcha.execute({{ .Env.WEB_RECAPTCHA_SITE }}, { action: 'login' }).then(function (token) {
+      grecaptcha.execute("{{ .Env.WEB_RECAPTCHA_SITE }}", { action: "login" }).then(function (token) {
         document.getElementById("game").finishedCaptcha(token);
       });
     }
