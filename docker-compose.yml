@@ -91,6 +91,7 @@ services:
               "--redis-address", "redis", 
               "--database-address", "db", 
               "--database-user", "${POSTGRES_USER}", 
+              "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_blizzard:
     image: houdini
@@ -112,6 +113,7 @@ services:
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
+              "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_glaciar:
     image: houdini
@@ -133,6 +135,7 @@ services:
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
+              "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_avalanche:
     image: houdini
@@ -154,6 +157,7 @@ services:
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
+              "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_yeti:
     image: houdini
@@ -175,6 +179,7 @@ services:
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
+              "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   dash:
     build: ./dash
