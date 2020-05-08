@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <object type="application/x-shockwave-flash" id="game" name="game" data="http://media.localhost/boots.swf"
+    <object type="application/x-shockwave-flash" id="game" name="game" data="{{ .Env.WEB_LEGACY_MEDIA }}/boots.swf"
       width="100%" 
       height="98%">
       <param name="menu" value="false">
@@ -91,7 +91,7 @@
     <script src="https://www.google.com/recaptcha/api.js?render={{ .Env.WEB_RECAPTCHA_SITE }}"></script>
     <script type="text/javascript">
     function grecaptchaSubmit(){
-      grecaptcha.execute({{ .Env.WEB_RECAPTCHA_SITE }}, { action: 'login' }).then(function (token) {
+      grecaptcha.execute("{{ .Env.WEB_RECAPTCHA_SITE }}", { action: 'login' }).then(function (token) {
         document.getElementById("game").finishedCaptcha(token);
       });
     }
