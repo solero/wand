@@ -6,14 +6,6 @@ server {
         index  index.html index.htm;
     }
 
-    location /penguin/create {
-        proxy_pass http://dash:3000/create/vanilla/en;
-        proxy_redirect off;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-
     location ~ ^/(.*)/penguin/create {
         proxy_pass http://dash:3000/create/vanilla/$1;
         proxy_redirect off;
@@ -22,6 +14,16 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
+
+    location /penguin/create {
+        proxy_pass http://dash:3000/create/vanilla/en;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+
     location ~ ^/(.*)/penguin/activate/(.*) {
         proxy_pass http://dash:3000/activate/vanilla/$1/$2;
         proxy_redirect off;
@@ -29,6 +31,54 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
+
+
+
+    location ~ ^/(.*)/penguin/activate {
+        proxy_pass http://dash:3000/activate/vanilla/$1;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+
+
+    location /penguin/activate {
+        proxy_pass http://dash:3000/activate/vanilla/en;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+
+    location ~ ^/(.*)/penguin/forgot-password/(.*) {
+        proxy_pass http://dash:3000/password/$1/$2;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+
+    location ~ ^/(.*)/penguin/forgot-password {
+        proxy_pass http://dash:3000/password/$1;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+
+    location /penguin/forgot-password {
+        proxy_pass http://dash:3000/password/en;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
 
     location ~ ^/avatar/(.*)/cp$ {
         proxy_pass http://dash:3000/avatar/$1$is_args$args;
