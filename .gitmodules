@@ -1,6 +1,6 @@
 [submodule "houdini"]
 	path = houdini-asyncio
-	url = https://github.com/solero/houdini-asyncio
+	url = https://github.com/solero/houdini
 [submodule "dash"]
 	path = dash
 	url = https://github.com/solero/dash
