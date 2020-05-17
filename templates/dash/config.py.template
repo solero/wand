@@ -11,6 +11,7 @@ PORT : int
 ADDRESS = '0.0.0.0'
 PORT = 3000
 
+
 """
 PostgreSQL credentials
 ----------------------
@@ -21,6 +22,16 @@ POSTGRES_HOST = 'db'
 POSTGRES_NAME = '{{ .Env.POSTGRES_USER }}'
 POSTGRES_USER = '{{ .Env.POSTGRES_USER }}'
 POSTGRES_PASSWORD = '{{ .Env.POSTGRES_PASSWORD }}'
+
+
+"""
+Redis configuration
+----------------------
+Here place the Redis configuration.
+"""
+
+REDIS_ADDRESS = '0.0.0.0'
+REDIS_PORT = 6379
 
 
 """
@@ -39,6 +50,7 @@ GCAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify'
 GSECRET_KEY = '{{ .Env.WEB_RECAPTCHA_SECRET }}'
 GSITE_KEY = '{{ .Env.WEB_RECAPTCHA_SITE }}'
 
+
 """
 Player usernames
 ----------------
@@ -55,6 +67,7 @@ APPROVE_USERNAME : bool
 USERNAME_FORCE_CASE = True
 APPROVE_USERNAME = False
 
+
 """
 Player activation
 -----------------
@@ -65,14 +78,11 @@ LEGACY_ACTIVATE_LINK : str
     URL player is taken to for activation.
 VANILLA_ACTIVATE_LINK : str
     URL player is taken to for activation.
-ACTIVATE_REDIRECT : str
-    URL to redirect to when player has activated their account
-    via email.
 """
 ACTIVATE_PLAYER = {{ if not .Env.WEB_SENDGRID_KEY }}True{{ else }}False{{ end }}
 VANILLA_ACTIVATE_LINK = '{{ .Env.WEB_VANILLA_PLAY }}'
 LEGACY_ACTIVATE_LINK = '{{ .Env.WEB_LEGACY_PLAY }}'
-ACTIVATE_REDIRECT = '{{ .Env.WEB_LEGACY_PLAY }}'
+
 
 """
 Email
@@ -100,6 +110,7 @@ SENDGRID_API_KEY = '{{ .Env.WEB_SENDGRID_KEY }}'
 EMAIL_WHITELIST = []
 MAX_ACCOUNT_EMAIL = 5
 
+
 """
 Cryptography
 ------------
@@ -113,10 +124,25 @@ STATIC_KEY = 'houdini'
 """
 Sub-domains
 ------------
-PLAY_SUBDOMAIN : str
-    Play page sub-domain used to load static content for the AS3 registration page.
+LEGACY_PLAY_LINK : str
+    Play page sub-domain used to handle links for the AS2 registration page.
+VANILLA_PLAY_LINK : str
+    Play page sub-domain used to handle links & load content for the AS3 registration page.
 """
-PLAY_SUBDOMAIN = '{{ .Env.WEB_VANILLA_PLAY }}'
+LEGACY_PLAY_LINK = '{{ .Env.WEB_LEGACY_PLAY }}' 
+VANILLA_PLAY_LINK = '{{ .Env.WEB_VANILLA_PLAY }}' 
+
+
+"""
+Password reset
+-----------------
+AUTH_TTL : int
+    Time in seconds till a players password reset token expires.
+PASSWORD_REDIRECT : str
+    URL to redirect to when player has reset their password.
+"""
+AUTH_TTL = 3600
+PASSWORD_REDIRECT = ''
 
 
 # For more configuration settings see
