@@ -11,7 +11,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./houdini-asyncio/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
+      - ./houdini/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
       - ./.data:/var/lib/postgresql/data
   redis:
     image: redis:5.0.9-alpine
@@ -68,7 +68,7 @@ services:
               "-template", "/t/vanilla/media/play/web_service/environment_data.xml.template:/usr/share/nginx/vanilla/media/play/web_service/environment_data.xml",
               "nginx", "-g", "daemon off;"]
   houdini_login:
-    build: ./houdini-asyncio
+    build: ./houdini
     image: houdini
     restart: always
     env_file:
@@ -78,7 +78,7 @@ services:
     ports:
       - ${GAME_LOGIN_PORT}:${GAME_LOGIN_PORT}
     volumes:
-      - ./houdini-asyncio:/usr/src/houdini
+      - ./houdini:/usr/src/houdini
       - ./wait-for-postgres.sh:/usr/src/houdini/wait-for-postgres.sh
     depends_on:
       - db
@@ -101,7 +101,7 @@ services:
     ports:
       - 9875:9875
     volumes:
-      - ./houdini-asyncio:/usr/src/houdini
+      - ./houdini:/usr/src/houdini
     depends_on:
       - houdini_login
     links:
@@ -123,7 +123,7 @@ services:
     ports:
       - 9876:9876
     volumes:
-      - ./houdini-asyncio:/usr/src/houdini
+      - ./houdini:/usr/src/houdini
     depends_on:
       - houdini_login
     links:
@@ -145,7 +145,7 @@ services:
     ports:
       - 9877:9877
     volumes:
-      - ./houdini-asyncio:/usr/src/houdini
+      - ./houdini:/usr/src/houdini
     depends_on:
       - houdini_login
     links:
@@ -167,7 +167,7 @@ services:
     ports:
       - 9878:9878
     volumes:
-      - ./houdini-asyncio:/usr/src/houdini
+      - ./houdini:/usr/src/houdini
     depends_on:
       - houdini_login
     links:
