@@ -199,6 +199,7 @@ services:
       - redis
     links:
       - db:db
+      - redis:redis
       - houdini_login:login
     entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}",
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",

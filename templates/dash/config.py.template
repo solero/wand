@@ -30,7 +30,7 @@ Redis configuration
 Here place the Redis configuration.
 """
 
-REDIS_ADDRESS = '0.0.0.0'
+REDIS_ADDRESS = 'redis'
 REDIS_PORT = 6379
 
 
