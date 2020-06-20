@@ -144,6 +144,18 @@ PASSWORD_REDIRECT : str
 AUTH_TTL = 3600
 PASSWORD_REDIRECT = ''
 
+"""
+Manager
+-----------------
+LOGIN_FAILURE_TIMER : int
+    Time in seconds till the temporary login ban expires.
+LOGIN_FAILURE_LIMIT : int
+    Amount of times a player can attempt to login 
+    before being locked out.
+"""
+LOGIN_FAILURE_TIMER = 3600
+LOGIN_FAILURE_LIMIT = 5
+
 
 # For more configuration settings see
 # https://sanic.readthedocs.io/en/latest/sanic/config.html#builtin-configuration-values
