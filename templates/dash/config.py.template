@@ -74,14 +74,14 @@ Player activation
 ACTIVATE_PLAYER : bool
     Activate player automatically so no email needs to be sent.
     Enabling this option requires a SendGrid API key.
-LEGACY_REDIRECT_LINK : str
+LEGACY_ACTIVATE_REDIRECT : str
     URL player is taken to for activation.
-VANILLA_REDIRECT_LINK : str
+VANILLA_ACTIVATE_REDIRECT : str
     URL player is taken to for activation.
 """
 ACTIVATE_PLAYER = {{ if not .Env.WEB_SENDGRID_KEY }}True{{ else }}False{{ end }}
-LEGACY_REDIRECT_LINK = '{{ .Env.WEB_LEGACY_PLAY }}'
-VANILLA_REDIRECT_LINK = '{{ .Env.WEB_VANILLA_PLAY }}'
+LEGACY_ACTIVATE_REDIRECT = '{{ .Env.WEB_LEGACY_PLAY }}'
+VANILLA_ACTIVATE_REDIRECT = '{{ .Env.WEB_VANILLA_PLAY }}'
 
 
 """
