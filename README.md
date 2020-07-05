@@ -1,12 +1,8 @@
 # wand
 
 Wand makes it easy to configure dash, houdini and a media server.
-<img
-src=“images/wand.gif”
-raw=true
-alt=“Wand”
-style=“margin-right: 10px;”
-/>
+<img src=“images/wand.gif” raw=true alt=“Wand” style=“margin-right: 10px;” />
+![Wand](./images/wand.gif)
 ## Basic setup
 
 **Step 1** Install git, docker & docker-compose
