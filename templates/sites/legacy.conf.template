@@ -33,7 +33,7 @@ server {
     }
 
     location ~ ^/penguin/activate/(.*) {
-        proxy_pass http://localhost:3000/activate/legacy/$1;
+        proxy_pass http://dash:3000/activate/legacy/$1;
         proxy_redirect off;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
