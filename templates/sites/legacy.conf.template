@@ -32,8 +32,8 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
-    location /create/activate {
-        proxy_pass http://dash:3000/create/activate;
+    location ~ ^/penguin/activate/(.*) {
+        proxy_pass http://localhost:3000/activate/legacy/$1;
         proxy_redirect off;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
