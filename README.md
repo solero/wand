@@ -31,14 +31,14 @@ $ sudo docker-compose up
 **Step 5** 
 Grab the required browser/tools
 
-### Browser
+Browser
 ***Required since Mid Jan 2021***
 - https://www.slimjet.com/en/dlpage.php
 
-### DB Browser
+DB Browser
 **pgAdmin**
 https://www.pgadmin.org/download/
 
-### .swf Decomplier/Editor
+.swf Decomplier/Editor
 **JPEXS Free Flash Decompiler**
-https://github.com/jindrapetrik/jpexs-decompiler/releases
+   https://github.com/jindrapetrik/jpexs-decompiler/releases
