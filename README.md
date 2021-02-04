@@ -31,9 +31,9 @@ $ sudo docker-compose up
 **Step 5** 
 Grab the required browser/tools
 
-- **Browser**
+- **Web Browser (Client)**
 ***Required since Mid Jan 2021***
-https://www.slimjet.com/en/dlpage.php
+https://www.slimjet.com/en/dlpage.php <- This has flash built-in
 
 - **DB Browser**
 pgAdmin
