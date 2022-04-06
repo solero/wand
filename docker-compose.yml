@@ -69,7 +69,6 @@ services:
               "nginx", "-g", "daemon off;"]
   houdini_login:
     build: ./houdini
-    image: houdini
     restart: always
     env_file:
       - .env
@@ -94,7 +93,7 @@ services:
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_blizzard:
-    image: houdini
+    build: ./houdini
     restart: always
     networks:
       - wand
@@ -116,7 +115,7 @@ services:
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_glaciar:
-    image: houdini
+    build: ./houdini
     restart: always
     networks:
       - wand
@@ -138,7 +137,7 @@ services:
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_avalanche:
-    image: houdini
+    build: ./houdini
     restart: always
     networks:
       - wand
@@ -160,7 +159,7 @@ services:
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
   houdini_yeti:
-    image: houdini
+    build: ./houdini
     restart: always
     networks:
       - wand
