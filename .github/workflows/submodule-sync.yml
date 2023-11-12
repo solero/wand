@@ -1,0 +1,34 @@
+name: submodule-sync
+
+on:
+  schedule:
+    - cron:  '0 0 * * 1,3,5'
+
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: 'Submodules Sync'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Git submodule update
+      run: |
+        git update-index --cacheinfo 160000,$(git ls-remote https://git.solero.me/solero/vanilla-media.git/ HEAD | awk '{ print $1}'),vanilla-media
+        git update-index --cacheinfo 160000,$(git ls-remote https://git.solero.me/solero/legacy-media.git/ HEAD | awk '{ print $1}'),legacy-media
+        git update-index --cacheinfo 160000,$(git ls-remote https://github.com/solero/houdini.git/ HEAD | awk '{ print $1}'),houdini
+        git update-index --cacheinfo 160000,$(git ls-remote https://github.com/solero/dash.git/ HEAD | awk '{ print $1}'),dash
+
+    - name: Commit update
+      run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git commit -am "Fast-forward sub-modules" && git push || echo "No changes to commit"
