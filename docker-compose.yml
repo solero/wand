@@ -205,6 +205,27 @@ services:
                 "python", "bootstrap.py"]
     command: ["-c", "config.py"]
 
+  snowflake:
+    build: ./snowflake
+    restart: always
+    networks:
+      - wand
+    ports:
+      - 7002:7002
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_HOST=redis
+      - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
+    depends_on:
+      - db
+      - redis
+      - dash
+    links:
+      - db:db
+      - redis:redis
+
 networks:
   wand:
     driver: bridge
