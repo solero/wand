@@ -204,7 +204,6 @@ services:
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
                 "python", "bootstrap.py"]
     command: ["-c", "config.py"]
-
   snowflake:
     build: ./snowflake
     restart: always
@@ -218,6 +217,9 @@ services:
       - POSTGRES_HOST=db
       - REDIS_HOST=redis
       - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
+    volumes:
+      - ./snowflake:/usr/src/snowflake
+      - ./.env:/usr/src/snowflake/.env
     depends_on:
       - db
       - redis
@@ -225,6 +227,8 @@ services:
     links:
       - db:db
       - redis:redis
+      - houdini_login:login
+    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "./main.py"]
 
 networks:
   wand:
