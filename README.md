@@ -5,7 +5,7 @@ Wand makes it easy to configure dash, houdini and a media server.
 ## Install script
 **Step 1** run the script
 ```bash
-$ bash <(https://raw.githubusercontent.com/arnon001/wand/master/install.sh)
+$ bash <(https://raw.githubusercontent.com/solero/wand/master/install.sh)
 ```
 **Step 2** Answer Questions
 the questions are:
