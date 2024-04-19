@@ -67,4 +67,4 @@ GAME_LOGIN_PORT=6112" > .env
 
 echo "Done!"
 echo "You can now run the game doing the command"
-echo "sudo docker-compose up"
+echo "cd wand && sudo docker-compose up"
