@@ -12,15 +12,7 @@ echo "Done Downloading the game files."
 sudo rm -r .env
 echo "Please answer this questions for setting up the game:"
 echo "Enter password for the database (leave empty for a random password):"
-dbpass=""
-while IFS= read -r -s -n1 char; do
-    if [[ -z $char ]]; then
-        break
-    fi
-    echo -n '*'
-    dbpass+="$char"
-done
-echo ""
+read -s dbpass
 
 if [ -z "$dbpass" ]; then
     dbpass=$(openssl rand -base64 12)
