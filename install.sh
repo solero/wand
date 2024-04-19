@@ -11,8 +11,22 @@ git clone --recurse-submodules https://github.com/solero/wand && cd wand
 echo "Done Downloading the game files."
 sudo rm -r .env
 echo "Please answer this questions for setting up the game:"
+
 echo "Enter password for the database (leave empty for a random password):"
-read -s dbpass
+dbpass=""
+while IFS= read -r -s -n1 char; do
+    if [[ -z $char ]]; then
+        break
+    elif [[ $char == $'\177' ]]; then # handle backspace
+        if [ ${#dbpass} -gt 0 ]; then
+            dbpass="${dbpass%?}" # remove last character
+            echo -ne '\b \b' # erase last character on the screen
+        fi
+    else
+        echo -n '*'
+        dbpass+="$char"
+    fi
+done
 
 if [ -z "$dbpass" ]; then
     dbpass=$(openssl rand -base64 12)
