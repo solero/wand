@@ -2,6 +2,21 @@
 
 Wand makes it easy to configure dash, houdini and a media server.
 
+## Install script
+**Step 1** run the script
+```bash
+$ bash <(https://raw.githubusercontent.com/arnon001/wand/master/install.sh)
+```
+**Step 2** Answer Questions
+the questions are:
+* Database password (Leave blank for random password)
+* Hostname (example: `clubpenguin.com`) (Leave empty for localhost)
+* External IP Address (Leave empty for localhost)
+**Step 3** Run and enjoy.
+Run this command:
+```bash
+$ cd wand && sudo docker-compose up
+```
 ## Basic setup
 
 **Step 1** Install git, docker & docker-compose
