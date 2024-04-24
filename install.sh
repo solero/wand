@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-echo "Please answer this questions for setting up the game:"
+echo "Please answer these questions to set up the game:"
 
 echo "Enter password for the database (leave empty for a random password):"
 dbpass=""
@@ -22,23 +22,26 @@ if [ -z "$dbpass" ]; then
     dbpass=$(openssl rand -base64 12)
 fi
 
-echo "enter the hostname for the game (example: example.com) (leave empty for localhost)"
+echo "Enter the hostname for the game (example: example.com) (leave empty for localhost):"
 read hostname
 if [ -z "$hostname" ]; then
-	hostname=localhost
+    hostname=localhost
 fi
+
 echo "Enter your external IP address (leave empty for localhost):"
 read ipadd
 if [ -z "$ipadd" ]; then
-	ipadd=127.0.0.1
+    ipadd=127.0.0.1
 fi
 
-echo "Setting up the enviroment."
+read -p "Do you want to run the game when the installation ends? (y/N): " run_game
+
+echo "Setting up the environment."
 sudo apt update
 sudo apt install docker.io git curl
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-echo "Done setting up the enviroment."
+echo "Done setting up the environment."
 echo "Downloading Game Files"
 git clone --recurse-submodules https://github.com/solero/wand && cd wand
 echo "Done Downloading the game files."
@@ -67,5 +70,10 @@ GAME_ADDRESS=$ipadd
 GAME_LOGIN_PORT=6112" > .env
 
 echo "Done!"
-echo "You can now run the game doing the command"
-echo "cd wand && sudo docker-compose up"
+
+
+if [ "$run_game" == "y" ] || [ "$run_game" == "Y" ]; then
+    sudo docker-compose up
+else
+    echo "You chose not to run the game. To run the game later, execute the command: cd wand && sudo docker-compose up"
+fi
