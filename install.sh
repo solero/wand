@@ -38,7 +38,7 @@ read -p "Do you want to run the game when the installation ends? (y/N): " run_ga
 
 echo "Setting up the environment."
 sudo apt update
-sudo apt install docker.io git curl
+sudo apt install docker.io git curl -y
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 echo "Done setting up the environment."
