@@ -1,7 +1,6 @@
 #!/bin/bash
 clear
 echo "Please answer these questions to set up the game:"
-
 echo "Enter password for the database (leave empty for a random password):"
 dbpass=""
 while IFS= read -r -s -n1 char; do
@@ -36,11 +35,24 @@ fi
 
 read -p "Do you want to run the game when the installation ends? (y/N): " run_game
 
-echo "Setting up the environment."
-sudo apt update
-sudo apt install docker.io git curl -y
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+
+if [[ $(uname) == "Linux" ]]; then
+    echo "Setting up the environment."
+    sudo apt update
+    sudo apt install docker.io git curl -y
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+elif [[$(uname) == "Darwin" ]]; then
+    echo "Installing homebrew"
+    sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    brew install docker
+    brew install git
+    brew install docker-compose@2.20.3
+else
+    echo "This operating system isn't supported yet. feel free to join the discord and ask questions."
+    exit 1
+fi
+
 echo "Done setting up the environment."
 echo "Downloading Game Files"
 git clone --recurse-submodules https://github.com/solero/wand && cd wand
