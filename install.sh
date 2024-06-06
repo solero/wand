@@ -59,9 +59,10 @@ git clone --recurse-submodules https://github.com/solero/wand && cd wand
 echo "Done Downloading the game files."
 sudo rm -r .env
 
-echo "# database
+echo "# Database
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=$dbpass
+
 # Web
 WEB_PORT=80
 WEB_HOSTNAME=$hostname
@@ -79,7 +80,18 @@ WEB_SENDGRID_KEY=
 
 # Game
 GAME_ADDRESS=$ipadd
-GAME_LOGIN_PORT=6112" > .env
+GAME_LOGIN_PORT=6112
+
+# Snowflake
+SNOWFLAKE_HOST=$ipadd
+SNOWFLAKE_PORT=7002
+
+APPLY_WINDOWMANAGER_OFFSET=False
+
+ALLOW_FORCESTART_SNOW=False
+ALLOW_FORCESTART_TUSK=True
+
+MATCHMAKING_TIMEOUT=30" > .env
 
 echo "Done!"
 
