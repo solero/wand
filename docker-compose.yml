@@ -210,13 +210,14 @@ services:
     networks:
       - wand
     ports:
-      - 7002:7002
+      - ${SNOWFLAKE_HOST}:${SNOWFLAKE_PORT}:${SNOWFLAKE_PORT}
     env_file:
       - .env
     environment:
       - POSTGRES_HOST=db
       - REDIS_HOST=redis
       - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
+      - PORT=${SNOWFLAKE_PORT}
     volumes:
       - ./snowflake:/usr/src/snowflake
       - ./.env:/usr/src/snowflake/.env
