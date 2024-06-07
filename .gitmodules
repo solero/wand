@@ -10,3 +10,6 @@
 [submodule "vanilla-media"]
 	path = vanilla-media
 	url = https://git.solero.me/solero/vanilla-media
+[submodule "snowflake"]
+	path = snowflake
+	url = https://github.com/Lekuruu/snowflake.git

@@ -25,6 +25,7 @@ jobs:
         git update-index --cacheinfo 160000,$(git ls-remote https://git.solero.me/solero/legacy-media.git/ HEAD | awk '{ print $1}'),legacy-media
         git update-index --cacheinfo 160000,$(git ls-remote https://github.com/solero/houdini.git/ HEAD | awk '{ print $1}'),houdini
         git update-index --cacheinfo 160000,$(git ls-remote https://github.com/solero/dash.git/ HEAD | awk '{ print $1}'),dash
+        git update-index --cacheinfo 160000,$(git ls-remote https://github.com/lekuruu/snowflake.git/ HEAD | awk '{ print $1}'),snowflake
 
     - name: Commit update
       run: |
