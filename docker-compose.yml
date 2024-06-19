@@ -210,7 +210,7 @@ services:
     networks:
       - wand
     ports:
-      - ${SNOWFLAKE_HOST}:${SNOWFLAKE_PORT}:${SNOWFLAKE_PORT}
+      - ${SNOWFLAKE_PORT}:${SNOWFLAKE_PORT}
     env_file:
       - .env
     environment:
