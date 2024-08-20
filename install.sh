@@ -1,5 +1,20 @@
 #!/bin/bash
 clear
+
+print_banner() {
+    echo '
+ __          __     _   _ _____  
+ \ \        / /\   | \ | |  __ \ 
+  \ \  /\  / /  \  |  \| | |  | |
+   \ \/  \/ / /\ \ | . ` | |  | |
+    \  /\  / ____ \| |\  | |__| |
+     \/  \/_/    \_\_| \_|_____/ 
+                                    
+      Wand Installation Script
+    '
+}
+print_banner
+
 echo "Please answer these questions to set up the game:"
 echo "Enter password for the database (leave empty for a random password):"
 dbpass=""
@@ -36,20 +51,73 @@ fi
 read -p "Do you want to run the game when the installation ends? (y/N): " run_game
 
 
+install_docker_official() {
+    echo "Installing Docker using the official installation script..."
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+    sudo systemctl start docker
+    sudo systemctl enable docker
+}
+
 if [[ $(uname) == "Linux" ]]; then
-    echo "Setting up the environment."
-    sudo apt update
-    sudo apt install docker.io git curl -y
-    sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-elif [[$(uname) == "Darwin" ]]; then
-    echo "Installing homebrew"
-    sudo curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    echo "Setting up the environment for Linux."
+    
+    # Detect the package manager
+    if command -v apt &> /dev/null || command -v dnf &> /dev/null || command -v yum &> /dev/null; then
+        if command -v apt &> /dev/null; then
+            PKG_MANAGER="apt"
+            INSTALL_CMD="sudo apt update && sudo apt install -y"
+        elif command -v dnf &> /dev/null; then
+            PKG_MANAGER="dnf"
+            INSTALL_CMD="sudo dnf install -y"
+        elif command -v yum &> /dev/null; then
+            PKG_MANAGER="yum"
+            INSTALL_CMD="sudo yum install -y"
+        fi
+
+        echo "Detected package manager: $PKG_MANAGER"
+
+        # Install git and curl
+        $INSTALL_CMD git curl
+
+        # Install Docker using the official script supports Debian, Ubuntu, and CentOS
+        install_docker_official
+
+    # Installer for Arch because they do it a little differently over there
+    elif command -v pacman &> /dev/null; then
+        PKG_MANAGER="pacman"
+        INSTALL_CMD="sudo pacman -S --noconfirm"
+        
+        echo "Detected package manager: $PKG_MANAGER"
+
+        # Update the system
+        sudo pacman -Syu --noconfirm
+        
+        # Install Docker, git, and curl
+        $INSTALL_CMD docker docker-compose git curl
+        sudo systemctl start docker
+        sudo systemctl enable docker
+    else
+        echo "This operating system isn't supported yet. Feel free to join the Discord and ask questions."
+        exit 1
+    fi
+
+    # Install Docker Compose for non-Arch systems
+    if [[ $PKG_MANAGER != "pacman" ]]; then
+        echo "Installing Docker Compose..."
+        sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+    fi
+
+elif [[ $(uname) == "Darwin" ]]; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Installing Docker, git, and Docker Compose..."
     brew install docker
     brew install git
     brew install docker-compose@2.20.3
 else
-    echo "This operating system isn't supported yet. feel free to join the discord and ask questions."
+    echo "This operating system isn't supported yet. Feel free to join the Discord and ask questions."
     exit 1
 fi
 
