@@ -52,7 +52,7 @@ read -p "Do you want to run the game when the installation ends? (y/N): " run_ga
 
 
 install_docker_official() {
-    echo "Installing Docker using the official installation script..."
+    echo "Installing Docker..."
     curl -fsSL https://get.docker.com -o get-docker.sh
     sudo sh get-docker.sh
     sudo systemctl start docker
@@ -66,19 +66,24 @@ if [[ $(uname) == "Linux" ]]; then
     if command -v apt &> /dev/null || command -v dnf &> /dev/null || command -v yum &> /dev/null; then
         if command -v apt &> /dev/null; then
             PKG_MANAGER="apt"
-            INSTALL_CMD="sudo apt update && sudo apt install -y"
+            INSTALL_CMD="sudo apt"
         elif command -v dnf &> /dev/null; then
             PKG_MANAGER="dnf"
-            INSTALL_CMD="sudo dnf install -y"
+            INSTALL_CMD="sudo dnf"
         elif command -v yum &> /dev/null; then
             PKG_MANAGER="yum"
-            INSTALL_CMD="sudo yum install -y"
+            INSTALL_CMD="sudo yum"
         fi
 
         echo "Detected package manager: $PKG_MANAGER"
 
+        # Update the system
+        echo "Updating system repositories..."
+        $INSTALL_CMD update 
+
         # Install git and curl
-        $INSTALL_CMD git curl
+        echo "Installing Curl and Git..."
+        $INSTALL_CMD install -y git curl
 
         # Install Docker using the official script supports Debian, Ubuntu, and CentOS
         install_docker_official
@@ -91,9 +96,11 @@ if [[ $(uname) == "Linux" ]]; then
         echo "Detected package manager: $PKG_MANAGER"
 
         # Update the system
+        echo "Updating system repositories..."
         sudo pacman -Syu --noconfirm
         
         # Install Docker, git, and curl
+        echo "Installing Curl and Git, Docker and Docker Compose..."
         $INSTALL_CMD docker docker-compose git curl
         sudo systemctl start docker
         sudo systemctl enable docker
