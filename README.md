@@ -4,6 +4,7 @@ Wand makes it easy to configure dash, houdini and a media server utilizing docke
 
 > [!NOTE]
 > This can also be ran on Windows using WSL.
+> This can also be ran on MacOS (Darwin)
 
 ## Installation script
 **Step 1** run the script
@@ -14,6 +15,7 @@ bash <(curl -s https://raw.githubusercontent.com/solero/wand/master/install.sh)
 * Database password (Leave blank for random password)
 * Hostname (example: `clubpenguin.com`) (Leave empty for localhost)
 * External IP Address (Leave empty for localhost)
+  <br>
 **Step 3** Run and enjoy.
 Run this command:
 ```bash
@@ -24,7 +26,7 @@ $ cd wand && sudo docker-compose up
 > [!IMPORTANT]
 > This is not recommended for beginners. If you're not sure what you're doing, use the install script.
 
-**Step 1** Choose your Linux Distribution
+**Step 1** Choose your Linux Distribution / MacOS
 
 <details>
   <summary>Debian/Ubuntu</summary>
@@ -63,6 +65,16 @@ $ systemctl enable docker.service
 ```
 </details>
 
+<details>
+  <summary>MacOS (Darwin OS)</summary>
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install docker
+brew install git
+brew install docker-compose@2.20.3
+```
+</details>
 
 **Step 2** Clone the repository & submodules
 ```bash
