@@ -15,7 +15,7 @@ bash <(curl -s https://raw.githubusercontent.com/solero/wand/master/install.sh)
 * Database password (Leave blank for random password)
 * Hostname (example: `clubpenguin.com`) (Leave empty for localhost)
 * External IP Address (Leave empty for localhost)
-  <br>
+  
 **Step 3** Run and enjoy.
 Run this command:
 ```bash
