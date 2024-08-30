@@ -3,7 +3,7 @@
 Wand makes it easy to configure dash, houdini and a media server utilizing docker & docker-compose.
 
 > [!NOTE]
-> This can also be ran on Windows using WSL.
+> This can also be ran on Windows using WSL. <br>
 > This can also be ran on MacOS (Darwin)
 
 ## Installation script
