@@ -79,7 +79,7 @@ LEGACY_ACTIVATE_REDIRECT : str
 VANILLA_ACTIVATE_REDIRECT : str
     URL player is taken to for activation.
 """
-ACTIVATE_PLAYER = {{ if not .Env.WEB_SENDGRID_KEY }}True{{ else }}False{{ end }}
+ACTIVATE_PLAYER = {{ if or (eq .Env.EMAIL_METHOD "SENDGRID") (eq .Env.EMAIL_METHOD "SMTP") }}False{{ else }}True{{ end }}
 LEGACY_ACTIVATE_REDIRECT = '{{ .Env.WEB_LEGACY_PLAY }}'
 VANILLA_ACTIVATE_REDIRECT = '{{ .Env.WEB_VANILLA_PLAY }}'
 
@@ -87,13 +87,26 @@ VANILLA_ACTIVATE_REDIRECT = '{{ .Env.WEB_VANILLA_PLAY }}'
 """
 Email
 -----
+EMAIL_METHOD : str
+    Options: SENDGRID, SMTP, <blank>
+    Choose a method to send emails.
 SITE_NAME : str
     The name of your site.
 FROM_EMAIL : str
-    Will appear as the sender for emails sent via the SendGrid
-    API.
+    Will appear as the sender for emails.
 SENDGRID_API_KEY : str
     Required for sending emails via the SendGrid API.
+SMTP_HOST : str
+    Required for sending emails via SMTP server.
+SMTP_PORT : int
+    Required for sending emails via SMTP server.
+SMTP_USER : str
+    Required for sending emails via SMTP server.
+SMTP_PASS : str
+    Required for sending emails via SMTP server.
+SMTP_SSL : bool
+    Required for sending emails via SMTP server.
+    Set to True to connect to the server with SSL.
 EMAIL_WHITELIST : list
     List of email domains to accept. If set to an empty list
     or `None` then dash will assume all email domains are
@@ -104,12 +117,21 @@ MAX_ACCOUNT_EMAIL : int
 .. SendGrid registration:
     https://signup.sendgrid.com/
 """
+EMAIL_METHOD = '{{ .Env.EMAIL_METHOD }}'.upper()
+
 SITE_NAME = '{{ .Env.WEB_HOSTNAME }}'
-FROM_EMAIL = 'noreply@{{ .Env.WEB_HOSTNAME }}'
-SENDGRID_API_KEY = '{{ .Env.WEB_SENDGRID_KEY }}'
+FROM_EMAIL = '{{ .Env.EMAIL_FROM_ADDRESS }}'
+
+SENDGRID_API_KEY = '{{ .Env.EMAIL_SENDGRID_KEY }}'
+
+SMTP_HOST = '{{ .Env.EMAIL_SMTP_HOST }}'
+SMTP_PORT = int('{{ .Env.EMAIL_SMTP_PORT }}')
+SMTP_USER = '{{ .Env.EMAIL_SMTP_USER }}'
+SMTP_PASS = '{{ .Env.EMAIL_SMTP_PASS }}'
+SMTP_SSL = {{ if eq .Env.EMAIL_SMTP_SSL "TRUE" }}True{{ else }}False{{ end }}
+
 EMAIL_WHITELIST = []
 MAX_ACCOUNT_EMAIL = 5
-
 
 """
 Cryptography
