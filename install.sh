@@ -166,13 +166,21 @@ APPLY_WINDOWMANAGER_OFFSET=False
 ALLOW_FORCESTART_SNOW=False
 ALLOW_FORCESTART_TUSK=True
 
-MATCHMAKING_TIMEOUT=30" > .env
+MATCHMAKING_TIMEOUT=30"
+
+EMAIL_METHOD=SMTP
+EMAIL_SMTP_HOST=
+EMAIL_SMTP_PORT=587
+EMAIL_SMTP_USER=
+EMAIL_SMTP_PASS=
+EMAIL_SMTP_SSL=TRUE
+EMAIL_FROM_ADDRESS=" > .env
 
 echo "Done!"
 
 
 if [ "$run_game" == "y" ] || [ "$run_game" == "Y" ]; then
-    sudo docker-compose up
+    sudo docker compose up
 else
-    echo "You chose not to run the game. To run the game later, execute the command: cd wand && sudo docker-compose up"
+    echo "You chose not to run the game. To run the game later, execute the command: cd wand && sudo docker compose up"
 fi
