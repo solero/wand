@@ -18,6 +18,9 @@ services:
   redis:
     image: redis:5.0.9-alpine
     restart: always
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - ./.redis:/data
     networks:
       - wand
     ports:
