@@ -16,7 +16,7 @@ services:
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/db.png
   redis:
-    image: redis:7.9.0-alpine
+    image: redis:8.10.2-alpine
     restart: always
     command: redis-server --save 60 1 --loglevel warning
     volumes:
