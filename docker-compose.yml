@@ -13,10 +13,11 @@ services:
       - ./.data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", 'pg_isready -h 127.0.0.1 -U "$$POSTGRES_USER" -d "$$POSTGRES_USER"']
-      interval: 5s
+      interval: 8s
       timeout: 5s
-      retries: 12
+      retries: 15
       start_period: 30s
+      start_interval: 5s
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/db.png
   redis:
@@ -27,7 +28,7 @@ services:
       test: ["CMD-SHELL", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
-      retries: 12
+      retries: 15
       start_period: 30s
     volumes:
       - ./.redis:/data
@@ -113,10 +114,11 @@ services:
         - -c
         - "import socket, sys; socket.create_connection(('127.0.0.1', int(sys.argv[1])), timeout=3).close()"
         - "${GAME_LOGIN_PORT}"
-      interval: 5s
+      interval: 60s
       timeout: 5s
       retries: 12
       start_period: 30s
+      start_interval: 5s
     command: ["--port", "${GAME_LOGIN_PORT}",
               "--redis-address", "redis",
               "--database-address", "db",
