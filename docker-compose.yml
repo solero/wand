@@ -11,12 +11,24 @@ services:
     volumes:
       - ./houdini/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
       - ./.data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -h 127.0.0.1 -U "$$POSTGRES_USER" -d "$$POSTGRES_USER"']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/db.png
   redis:
     image: redis:8.10.3-alpine
     restart: always
     command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     volumes:
       - ./.redis:/data
     networks:
@@ -85,14 +97,15 @@ services:
       - ${GAME_LOGIN_PORT}:${GAME_LOGIN_PORT}
     volumes:
       - ./houdini:/usr/src/houdini
-      - ./wait-for-postgres.sh:/usr/src/houdini/wait-for-postgres.sh
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
-    entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python", "bootstrap.py", "login"]
+    entrypoint: ["python", "bootstrap.py", "login"]
     command: ["--port", "${GAME_LOGIN_PORT}",
               "--redis-address", "redis",
               "--database-address", "db",
