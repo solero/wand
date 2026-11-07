@@ -106,6 +106,17 @@ services:
       - db:db
       - redis:redis
     entrypoint: ["python", "bootstrap.py", "login"]
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket, sys; socket.create_connection(('127.0.0.1', int(sys.argv[1])), timeout=3).close()"
+        - "${GAME_LOGIN_PORT}"
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     command: ["--port", "${GAME_LOGIN_PORT}",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -124,12 +135,13 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -148,12 +160,13 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -172,12 +185,13 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -196,12 +210,13 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
               "--redis-address", "redis",
               "--database-address", "db",
@@ -224,13 +239,17 @@ services:
       - ./vanilla-media/media/avatar/paper:/usr/src/dash/items
       - ./templates/dash/config.py.template:/usr/src/dash/config.py.template
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}",
+    entrypoint: ["dockerize",
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
                 "python", "bootstrap.py"]
     command: ["-c", "config.py"]
@@ -254,14 +273,19 @@ services:
       - ./snowflake:/usr/src/snowflake
       - ./.env:/usr/src/snowflake/.env
     depends_on:
-      - db
-      - redis
-      - dash
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      dash:
+        condition: service_started
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "./main.py"]
+    entrypoint: ["python", "./main.py"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/snowflake.png
 
