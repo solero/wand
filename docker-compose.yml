@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   db:
     image: postgres:12.2-alpine
@@ -16,7 +14,7 @@ services:
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/db.png
   redis:
-    image: redis:8.10.2-alpine
+    image: redis:8.10.3-alpine
     restart: always
     command: redis-server --save 60 1 --loglevel warning
     volumes:
@@ -55,7 +53,7 @@ services:
       - ./templates/vanilla-media/play/fr/index.html.template:/t/vanilla/play/fr/index.html.template
       - ./templates/vanilla-media/play/pt/index.html.template:/t/vanilla/play/pt/index.html.template
       - ./templates/vanilla-media/media/play/web_service/environment_data.xml.template:/t/vanilla/media/play/web_service/environment_data.xml.template
-    command: ["dockerize", 
+    command: ["dockerize",
               "-template", "/etc/nginx/conf.d/legacy.conf.template:/etc/nginx/conf.d/legacy.conf",
               "-template", "/etc/nginx/conf.d/vanilla.conf.template:/etc/nginx/conf.d/vanilla.conf",
               "-template", "/t/servers.xml:/usr/share/nginx/legacy/media/servers.xml",
@@ -96,10 +94,10 @@ services:
       - redis:redis
     entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python", "bootstrap.py", "login"]
     command: ["--port", "${GAME_LOGIN_PORT}",
-              "--redis-address", "redis", 
-              "--database-address", "db", 
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -122,8 +120,8 @@ services:
     command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -146,8 +144,8 @@ services:
     command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -170,8 +168,8 @@ services:
     command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -194,8 +192,8 @@ services:
     command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -257,4 +255,3 @@ services:
 networks:
   wand:
     driver: bridge
- 
