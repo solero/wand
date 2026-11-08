@@ -1,8 +1,6 @@
-version: '3.7'
-
 services:
   db:
-    image: postgres:12.2-alpine
+    image: postgres:12.22-alpine
     restart: always
     env_file:
       - .env
@@ -13,12 +11,25 @@ services:
     volumes:
       - ./houdini/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
       - ./.data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -h 127.0.0.1 -U "$$POSTGRES_USER" -d "$$POSTGRES_USER"']
+      interval: 8s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+      start_interval: 5s
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/db.png
   redis:
-    image: redis:8.10.2-alpine
+    image: redis:8.10.3-alpine
     restart: always
     command: redis-server --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
     volumes:
       - ./.redis:/data
     networks:
@@ -55,7 +66,7 @@ services:
       - ./templates/vanilla-media/play/fr/index.html.template:/t/vanilla/play/fr/index.html.template
       - ./templates/vanilla-media/play/pt/index.html.template:/t/vanilla/play/pt/index.html.template
       - ./templates/vanilla-media/media/play/web_service/environment_data.xml.template:/t/vanilla/media/play/web_service/environment_data.xml.template
-    command: ["dockerize", 
+    command: ["dockerize",
               "-template", "/etc/nginx/conf.d/legacy.conf.template:/etc/nginx/conf.d/legacy.conf",
               "-template", "/etc/nginx/conf.d/vanilla.conf.template:/etc/nginx/conf.d/vanilla.conf",
               "-template", "/t/servers.xml:/usr/share/nginx/legacy/media/servers.xml",
@@ -87,19 +98,32 @@ services:
       - ${GAME_LOGIN_PORT}:${GAME_LOGIN_PORT}
     volumes:
       - ./houdini:/usr/src/houdini
-      - ./wait-for-postgres.sh:/usr/src/houdini/wait-for-postgres.sh
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
-    entrypoint: ["dockerize", "-wait", "tcp://redis:6379", "./wait-for-postgres.sh", "db", "python", "bootstrap.py", "login"]
+    entrypoint: ["python", "bootstrap.py", "login"]
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket, sys; socket.create_connection(('127.0.0.1', int(sys.argv[1])), timeout=3).close()"
+        - "${GAME_LOGIN_PORT}"
+      interval: 60s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+      start_interval: 5s
     command: ["--port", "${GAME_LOGIN_PORT}",
-              "--redis-address", "redis", 
-              "--database-address", "db", 
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--redis-address", "redis",
+              "--database-address", "db",
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -113,17 +137,18 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -137,17 +162,18 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -161,17 +187,18 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -185,17 +212,18 @@ services:
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
-      - houdini_login
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
+    entrypoint: ["python", "bootstrap.py", "world"]
     command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
               "--redis-address", "redis",
               "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
+              "--database-user", "${POSTGRES_USER}",
+              "--database-name", "${POSTGRES_USER}",
               "--database-password", "${POSTGRES_PASSWORD}"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
@@ -213,13 +241,17 @@ services:
       - ./vanilla-media/media/avatar/paper:/usr/src/dash/items
       - ./templates/dash/config.py.template:/usr/src/dash/config.py.template
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}",
+    entrypoint: ["dockerize",
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
                 "python", "bootstrap.py"]
     command: ["-c", "config.py"]
@@ -243,18 +275,22 @@ services:
       - ./snowflake:/usr/src/snowflake
       - ./.env:/usr/src/snowflake/.env
     depends_on:
-      - db
-      - redis
-      - dash
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      dash:
+        condition: service_started
+      houdini_login:
+        condition: service_healthy
     links:
       - db:db
       - redis:redis
       - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "./main.py"]
+    entrypoint: ["python", "./main.py"]
     labels:
       net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/snowflake.png
 
 networks:
   wand:
     driver: bridge
- 
